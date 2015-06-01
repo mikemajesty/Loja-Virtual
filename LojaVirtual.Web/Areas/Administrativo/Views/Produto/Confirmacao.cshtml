@@ -1,0 +1,102 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deleteModalLabel">Exclusão</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" />
+                <p>Deseja excluir o produto <em><strong>"<span></span>"</strong></em>&nbsp;?</p>
+
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button">Confirmar</button>
+
+            </div>
+
+        </div><!-- /.modal-content -->
+
+    </div><!-- /.modal-dialog -->
+
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+    $(function () {
+        var nome = null;
+        var id = null;
+        var loading = null;
+        $(".btn.btn-default.btn-xs").click(function (e) {
+
+            e.preventDefault();
+            id = this.id;
+            nome = this.name;
+           
+            $("#deleteModal .modal-body input[type=hidden]").val(id);
+            $("#deleteModal .modal-body span").text(nome);
+            $("#deleteModal").modal('show');
+            $("#emLoco").empty();
+
+        });
+        //$(".btn.btn-success").click(function (e) {//da certo assim tmb
+        //    e.preventDefault();
+
+        //    alert("Voce Apagou o Produto: " + nome)
+        //});
+        //$("#deleteModal .modal-footer button").click(function (e) {//da certo assim tmb
+        //    e.preventDefault();
+
+        //    alert("Voce Apagou o Produto: " + nome)
+        //});
+        $("#deleteModal .btn.btn-success").click(function (e) {//da certo assim tmb
+            e.preventDefault();
+            var url = "/Administrativo/Produto/Excluir";
+            var identificador = id;
+
+            var rowNo = "#row-" + id;
+
+
+            $.ajax({
+
+                url: url,
+                type: 'post',
+                dataType: 'json',
+                data: { produtoId: identificador },
+                beforeSend: function () {
+
+                   
+                    loading = "<span id='emLoco'><em>Excluindo</em>&nbsp;<i class='glyphicon glyphicon-refresh icon-refresh-animate'></i></span>";
+
+
+                    $('#deleteModal .modal-header h4').after(loading);
+
+                  
+
+
+                },
+                success: function () {
+                   
+                    $(".glyphicon glyphicon-refresh icon-refresh-animate").empty();
+
+                    $('#deleteModal').modal('hide');
+
+                    $(rowNo).animate({ opacity: 0.0 }, 400, function () {
+                        //alert(rowNo);
+                        $(rowNo).remove();
+                    });
+                },
+                complete: function (data) {
+                    $("#excluir").empty();
+                    $("#excluir").addClass("alert alert-success");
+                    $("#excluir").html(data.responseText);
+                    
+                }
+            });
+
+        });
+
+    });
+</script>

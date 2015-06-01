@@ -1,0 +1,110 @@
+﻿@model LojaVirtual.Dominio.Entidades.Pedido
+@using System.Web.Optimization
+@{
+    ViewBag.Title = "Fechar o Pedido";
+    Layout = "~/Views/MasterPages/_TelaInicial.cshtml";
+}
+<h2>Fechar o Pedido</h2>
+<p>Digite suas informaçoes abaixo</p>
+
+@using (Html.BeginForm())
+{
+      
+   <div class="text-center">@Html.ValidationMessage("erroModel", new { @class="mikeLimaErro"})</div>
+    <h3 class="text-center">Enviar Para</h3>
+
+    <div class="form-group">
+        <label>
+            @Html.DisplayNameFor(c => c.NomeCliente)
+        </label>
+        @Html.TextBoxFor(n => n.NomeCliente, new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.NomeCliente)
+    </div>
+    <h3 class="text-center">Dados Para Entrega</h3>
+    foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+        if (property.PropertyName != "NomeCliente" && property.PropertyName != "EmbrulhaPresente")
+        {
+            <div class="form-group">
+                <label>
+                    @(property.DisplayName ?? property.PropertyName)
+                </label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                @Html.ValidationMessage(property.PropertyName)
+            </div>
+        }
+
+
+    }
+
+    /* <div class="form-group">
+         @Html.DisplayNameFor(c => c.CEP)
+         @Html.TextBoxFor(n => n.CEP, new { @class = "form-control" })
+     </div>
+     <div class="form-group">
+         @Html.DisplayNameFor(c => c.Endereco)
+         @Html.TextBoxFor(c => c.Endereco, new { @class = "form-control" })
+     </div>
+     @Html.DisplayNameFor(c => c.Complemento)
+     @Html.TextBoxFor(c => c.Complemento, new { @class = "form-control" })
+     <div class="form-group">
+         @Html.DisplayNameFor(c => c.Cidade)
+         @Html.TextBoxFor(c => c.Cidade, new { @class = "form-control" })
+     </div>
+     <div class="form-group">
+         @Html.DisplayNameFor(c => c.Bairro)
+         @Html.TextBoxFor(c => c.Bairro, new { @class = "form-control" })
+     </div>
+     <div class="form-group">
+         @Html.DisplayNameFor(c => c.Email)
+         @Html.TextBoxFor(c => c.Email, new { @class = "form-control" })
+     </div>
+     */
+    <h3>Opções</h3>
+
+    <div class="checkbox">
+        <label>
+            @Html.EditorFor(c => c.EmbrulhaPresente)
+            @Html.DisplayNameFor(c => c.EmbrulhaPresente)
+        </label>
+    </div>
+
+    <input class="btn btn-primary" value="Fechar Pedido" type="submit" />
+
+    
+
+}
+
+
+
+
+
+
+<script src="~/Scripts/jquery-1.9.1.min.js"></script>
+
+<script>
+    $('#CEP').change(function (e) {
+
+        e.preventDefault();
+
+        $('#Endereco').val('')
+        $('#Bairro').val('')
+        $('#Cidade').val('')
+        $('#Estado').val('')
+
+        var cep = $('#CEP').val().replace("-", "");
+
+        $.getJSON("http://cep.republicavirtual.com.br/web_cep.php?cep=" + cep + "&formato=json", {}, function (data) {
+
+            if (data.resultado_txt == 'sucesso - cep completo') {
+
+                $("#Endereco").val(data.tipo_logradouro + ' ' + data.logradouro);
+                $("#Bairro").val(data.bairro);
+                $("#Cidade").val(data.cidade);
+                $("#Estado").val(data.uf);
+
+            }
+        });
+    });
+</script>
+

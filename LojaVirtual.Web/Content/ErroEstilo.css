@@ -1,0 +1,34 @@
+﻿.validation-summary-errors{
+    border: 1px solid  #ff0000;background-color: #fee
+
+
+}
+.field-validation-error{
+    color: red;
+}
+.form-control.input-validation-error{
+    border: 1px solid  #ff0000;background-color: #fee;
+}
+.editor-field{
+     color: red;
+}
+.text-box.multi-line.input-validation-error{
+      border: 1px solid  #ff0000;background-color: #fee;
+}
+.text-box.single-line.input-validation-error{
+      border: 1px solid  #ff0000;background-color: #fee;
+}
+.field.validation.error{
+    color: red;
+
+}
+.input-validation-error.form-control{
+      border: 1px solid  #ff0000;background-color: #fee;
+}
+
+.field-validation-valid{
+    display: none;
+}
+.field-validation-error.mikeLimaErro{
+    border: 1px solid  #ff0000;background-color: #fee;
+}

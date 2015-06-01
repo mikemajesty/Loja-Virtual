@@ -1,0 +1,18 @@
+﻿@using LojaVirtual.Web.HtmlHelpers
+@model LojaVirtual.Web.Models.ProdutosViewModel
+
+
+@{
+    ViewBag.Title = "ListaProdutos";
+    Layout = "~/Views/MasterPages/_TelaInicial.cshtml";
+
+}
+
+@foreach (var prod in Model.Produtos)
+{
+    @Html.Partial("_ProdutoDetales",prod);
+}
+
+<div class="btn btn-group pull-right">
+    @Html.PageLinks(Model.Paginacao, x => Url.Action("ListaProdutos", new { Pagina = x,categoria = Model.CategoriaAtual}))
+</div>

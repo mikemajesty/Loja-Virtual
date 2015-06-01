@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "_AdministrativoLayout";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta name="viewport" content="width=device-width">
+
+    <title>@ViewBag.Title - Loja Virtual - Administrativo</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/ErroEstilo.css" rel="stylesheet" />
+
+    <link href="~/Content/Custom.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+   
+    <script src="~/Scripts/jquery.validate.js"></script>  
+    
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    
+
+    <script src="~/Scripts/jQueryFixes.js"></script>
+
+</head>
+
+<body>
+
+    <div>
+        @if (TempData["Menssagem"] != null)
+        {
+            <div id="Menssagem" class="alert alert-success">@TempData["Menssagem"]</div>
+        }
+        @RenderBody()
+
+    </div>
+
+</body>
+
+</html>
+

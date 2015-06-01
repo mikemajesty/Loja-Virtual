@@ -1,0 +1,77 @@
+﻿@model LojaVirtual.Web.Models.CarrinhoViewModel
+
+@{
+    ViewBag.Title = "Seu Carrinho";
+    Layout = "~/Views/MasterPages/_TelaInicial.cshtml";
+}
+
+<style>
+    #tblCarrinho td {
+        vertical-align: middle;
+    }
+</style>
+<h2>Seu carrinho</h2>
+
+<table id="tblCarrinho" class="table">
+    <thead>
+        <tr>
+            <th>
+                Quantidade
+            </th>
+            <th>
+                Prutodo
+            </th>
+            <th class="text-right">
+                Preço
+            </th>
+            <th class="text-right">
+                SubTotal
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Carrinho.ItensCarrinho)
+        {
+            <tr>
+                <td class="text-center">
+                    @item.Quantidade
+                </td>
+                <td class="text-center">
+                    @item.Produto.Nome
+                </td>
+                <td class="text-right">
+                    @item.Produto.Preco.ToString("C")
+                </td>
+                <td class="text-right">
+                    @((item.Quantidade * item.Produto.Preco).ToString("C"))
+                </td>
+                <td>
+                    @using (@Html.BeginForm("Remover", "Carrinho"))
+                    {
+                        @Html.Hidden("ProdutoId", item.Produto.ProdutoId)
+                        @Html.HiddenFor(x => x.ReturnUrl);
+                        <input class="btn btn-warning" type="submit" value="Remover" />
+                    }
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">
+                Total:
+            </td>
+            <td class="text-right">
+                <b> @Model.Carrinho.ObterValorTotal().ToString("C")</b>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">
+        Continuar Comprando
+    </a>
+    @Html.ActionLink("Fechar o Pedido", "FecharPedido", "Carrinho", new { @class = "btn btn-primary" })
+</div>

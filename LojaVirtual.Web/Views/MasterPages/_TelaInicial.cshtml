@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>@ViewBag.Title - Loja Virtual: Compre Tudo Aqui</title>
+
+
+
+    @Styles.Render("~/Content/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/Custom")
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" href="#">
+            Loja Virtual - Seu esporte é aqui!
+            @Html.Action("Resumo", "Carrinho")
+        </a>
+    </div>
+    <div class="row panel">
+        <div id="categorias" class="col-xs-3">
+            @Html.Action("Menu", "Categoria");
+        </div>
+        <div id="corpo" class="col-xs-8">
+            @RenderBody()
+        </div>
+    </div>
+</body>
+</html>
+

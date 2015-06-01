@@ -1,0 +1,24 @@
+﻿@model LojaVirtual.Dominio.Entidades.Produto
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("Editar", "ModelBinding", FormMethod.Post))
+{
+   
+    @Html.ValidationSummary(true)
+
+    <div>
+        Nome:
+        <input type="text" name="Nome" id="Nome" /><br />
+        Preço:
+        <input type="text" name="Preco" id="Preco" /><br />
+    </div>
+    
+    <input  type="submit" value="Button"/>
+   
+}
+

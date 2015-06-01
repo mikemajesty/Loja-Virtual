@@ -1,0 +1,51 @@
+﻿@model LojaVirtual.Dominio.Entidades.Administrador
+
+@{
+    ViewBag.Title = "Login";
+
+}
+
+<title>@ViewBag.Title - Loja Virtual - Administrativo</title>
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+<link href="~/Content/ErroEstilo.css" rel="stylesheet" />
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-2.1.3.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<script src="~/Scripts/LoginScript.js"></script>
+<link href="~/Content/LoginStyle.css" rel="stylesheet" />
+<!--
+    you can substitue the span of reauth email for a input with the email and
+    include the remember me checkbox
+    -->
+<div class="container">
+    <div class="card card-container">
+        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+        <p id="profile-name" class="profile-name-card"></p>
+        @using (Html.BeginForm("Login", "Autenticacao", new { ReturnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-signin" }))
+        {
+            @Html.ValidationMessage("erroSenha")
+             @Html.ValidationMessage("erroLogin")
+            <br />
+            <br />
+            @*@Html.LabelFor(c=>c.Login)*@
+            @Html.TextBoxFor(c => c.Login, new { @class = "form-control", @placeholder = "Usuario" })
+            @Html.ValidationMessageFor(c => c.Login, null, new { @class = "editor-field" })
+            @*@Html.LabelFor(c => c.Senha)*@
+            @Html.TextBoxFor(c => c.Senha, new { @class = "form-control", @placeholder = "Senha" })
+
+            @Html.ValidationMessageFor(c => c.Senha, null, new { @class = "editor-field" })
+
+            <input type="submit" class="btn btn-lg btn-primary btn-block btn-signin" value="Logar" />
+
+          
+        }
+
+    </div><!-- /card-container -->
+</div><!-- /container -->
